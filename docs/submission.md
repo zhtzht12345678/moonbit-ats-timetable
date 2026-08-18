@@ -1,8 +1,8 @@
 # 8 月黑客松项目申报书
 
-**项目标识**：`moonbit-ats-timetable`  
-**项目名称**：MoonBit 列车自动监控（ATS）运行图调度与实时冲突检测器  
-**项目仓库**：<https://github.com/zhtzht12345678/moonbit-ats-timetable>  
+**项目标识**：`moonbit-ats-timetable`<br>
+**项目名称**：MoonBit 列车自动监控（ATS）运行图调度与实时冲突检测器<br>
+**项目仓库**：<https://github.com/zhtzht12345678/moonbit-ats-timetable><br>
 **项目类型**：原创 MoonBit 工程，许可证为 Apache-2.0。
 
 ## 一、背景与应用价值
