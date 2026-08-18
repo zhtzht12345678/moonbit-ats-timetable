@@ -1,0 +1,7 @@
+.moon/
+.repos/
+target/
+_build/
+*.mbti.tmp
+.DS_Store
+coverage/
