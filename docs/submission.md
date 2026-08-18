@@ -19,7 +19,7 @@
 
 ## 四、当前成果与验证
 
-仓库已形成 17 个可追溯本地提交，实际 Git 跟踪的 MoonBit 源码为 4,291 行，包含库代码、测试、CLI 和示例。已覆盖静态校验、JSON/XML 往返、三类冲突、实时告警、策略建议、渲染输出、指标分析和仿真回放等测试；`moon test --target all --deny-warn` 在 wasm、wasm-gc、js、native 四个目标下均通过 9/9。项目提供跨平台 CI、README 中的可运行示例及 `check`、`conflicts`、`metrics`、`simulate` 等 CLI 操作。
+仓库已形成超过 10 个可追溯本地提交，实际 Git 跟踪的 MoonBit 源码为 4,291 行，包含库代码、测试、CLI 和示例。已覆盖静态校验、JSON/XML 往返、三类冲突、实时告警、策略建议、渲染输出、指标分析和仿真回放等测试；`moon test --target all --deny-warn` 在 wasm、wasm-gc、js、native 四个目标下均通过 9/9。项目提供跨平台 CI、README 中的可运行示例及 `check`、`conflicts`、`metrics`、`simulate` 等 CLI 操作。
 
 ## 五、原创性与后续扩展
 
