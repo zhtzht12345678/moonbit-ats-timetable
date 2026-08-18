@@ -1,0 +1,519 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "zhanghantian/moonbit-ats-timetable"
+
+import {
+  "moonbitlang/core/debug",
+  "moonbitlang/core/json",
+}
+
+// Values
+pub fn analyze_schedule(Schedule, Array[TrainRuntime], Int) -> ScheduleMetrics
+
+pub fn apply_delay_profile(Schedule, Array[(String, Int)]) -> (Schedule, Array[TimetableMutation])
+
+pub fn apply_dispatch_action(Schedule, DispatchAction) -> Schedule
+
+pub fn build_diagram_frame(Schedule, Array[TrainRuntime], Array[Conflict], RenderOptions, generated_at~ : String) -> DiagramFrame
+
+pub fn cadence_markdown(Array[CadenceReport]) -> String
+
+pub fn cadence_reports(Schedule) -> Array[CadenceReport]
+
+pub fn clamp_int(Int, Int, Int) -> Int
+
+pub fn compact_schedule_text(Schedule) -> String
+
+pub fn conflict_count_by_kind(Array[Conflict], ConflictKind) -> Int
+
+pub fn conflict_resource_ids(Array[Conflict]) -> Array[String]
+
+pub fn conflict_summary(Array[Conflict]) -> String
+
+pub fn default_dispatch_policy() -> DispatchPolicy
+
+pub fn default_monitor_config() -> MonitorConfig
+
+pub fn delay_histogram(Array[TrainRuntime], Int) -> Array[(Int, Int)]
+
+pub fn demo_schedule() -> Schedule
+
+pub fn demo_telemetry() -> Array[TelemetryEvent]
+
+pub fn detect_conflicts(Schedule) -> Array[Conflict]
+
+pub fn detect_realtime_conflicts(Schedule, Array[TrainRuntime]) -> Array[Conflict]
+
+pub fn diagram_time_labels(Int, Int, Int) -> Array[String]
+
+pub fn format_clock(Int) -> String
+
+pub fn health_dashboard_json(Schedule, Array[TrainRuntime], Int) -> String
+
+pub fn highest_severity(Array[Conflict]) -> String
+
+pub fn minimum_service_headway(Schedule, String) -> Int?
+
+pub fn monitor_alert_summary(Array[MonitorAlert]) -> String
+
+pub fn monitor_snapshot_json(MonitorSnapshot) -> String
+
+pub fn operating_window(Schedule) -> (Int, Int)?
+
+pub fn parse_clock(String) -> Int?
+
+pub fn plan_gate_label(PlanGate) -> String
+
+pub fn plan_review_json(PlanReview) -> String
+
+pub fn plan_review_markdown(PlanReview) -> String
+
+pub fn platform_loads(Schedule) -> Array[PlatformLoad]
+
+pub fn recommendation_summary(Array[DispatchRecommendation]) -> String
+
+pub fn render_conflict_csv(Array[Conflict]) -> String
+
+pub fn render_dispatch_bundle_json(Schedule, MonitorSnapshot, Array[Conflict], Array[DispatchRecommendation]) -> String
+
+pub fn render_options(start_min~ : Int, end_min~ : Int, include_finished? : Bool, include_conflicts? : Bool, scale_time? : Int, scale_distance? : Int) -> RenderOptions
+
+pub fn render_string_diagram_json(Schedule, Array[TrainRuntime], Array[Conflict], RenderOptions, generated_at~ : String) -> String
+
+pub fn render_string_diagram_ndjson(Schedule, Array[TrainRuntime], Array[Conflict], RenderOptions, generated_at~ : String) -> String
+
+pub fn render_string_diagram_svg(DiagramFrame) -> String
+
+pub fn replay_at(Schedule, Array[TelemetryEvent], Int) -> MonitorSnapshot
+
+pub fn retime_station(Schedule, String, String, Int, ActionKind, String) -> (Schedule, Array[TimetableMutation])
+
+pub fn review_timetable(Schedule, Array[TrainRuntime], Int, policy? : DispatchPolicy) -> PlanReview
+
+pub fn route_reservation(id~ : String, train_id~ : String, resource_id~ : String, entry_min~ : Int, exit_min~ : Int, release_margin_min? : Int, route_name? : String) -> RouteReservation
+
+pub fn safe_release_ready(PlanReview) -> Bool
+
+pub fn schedule(id~ : String, service_date~ : String, line_name~ : String, stations~ : Array[Station], segments~ : Array[LineSegment], trains~ : Array[Train], reservations? : Array[RouteReservation], timezone? : String, version? : Int, notes? : String) -> Schedule
+
+pub fn schedule_from_json_text(String) -> Result[Schedule, String]
+
+pub fn schedule_from_xml_text(String) -> Result[Schedule, String]
+
+pub fn schedule_health_label(ScheduleMetrics) -> String
+
+pub fn schedule_metrics_markdown(ScheduleMetrics) -> String
+
+pub fn schedule_validation_from_json_text(String) -> Result[Array[ValidationIssue], String]
+
+pub fn segment(id~ : String, from_station~ : String, to_station~ : String, distance_m~ : Int, min_run_min~ : Int, scheduled_run_min~ : Int, max_run_min~ : Int, headway_min~ : Int, throat_resource? : String?) -> LineSegment
+
+pub fn segment_loads(Schedule) -> Array[SegmentLoad]
+
+pub fn service_headways(Schedule, String) -> Array[Int]
+
+pub fn services_between(Schedule, Int, Int) -> Array[String]
+
+pub fn simulate(Schedule, Array[TelemetryEvent], start_min~ : Int, end_min~ : Int, step_min~ : Int) -> SimulationReport
+
+pub fn simulate_demo() -> SimulationReport
+
+pub fn simulation_json(SimulationReport) -> String
+
+pub fn simulation_summary(SimulationReport) -> String
+
+pub fn station(id~ : String, name~ : String, distance_m~ : Int, platform_count? : Int, is_interchange? : Bool) -> Station
+
+pub fn station_sequence(Schedule, String) -> String
+
+pub fn stop_time(station_id~ : String, arrival_min~ : Int, departure_min~ : Int, platform? : Int, stop_kind? : String, minimum_dwell_min? : Int, passenger_dwell_min? : Int) -> StopTime
+
+pub fn suggest_dispatches(Schedule, Array[Conflict], Array[TrainRuntime], policy? : DispatchPolicy) -> Array[DispatchRecommendation]
+
+pub fn telemetry(event_id~ : String, train_id~ : String, observed_min~ : Int, position_m~ : Int, delay_min~ : Int, mode~ : TrainMode, station_id? : String?, speed_kmh? : Int, source? : String) -> TelemetryEvent
+
+pub fn train(id~ : String, service_name~ : String, direction~ : Direction, stops~ : Array[StopTime], priority? : Int, length_m? : Int, max_speed_kmh? : Int, notes? : String) -> Train
+
+pub fn train_priority_order(Schedule) -> Array[String]
+
+pub fn validate_schedule(Schedule) -> Array[ValidationIssue]
+
+pub fn validation_errors(Array[ValidationIssue]) -> Array[ValidationIssue]
+
+pub fn validation_report_json(Schedule) -> String
+
+pub fn validation_summary(Array[ValidationIssue]) -> String
+
+// Errors
+
+// Types and methods
+pub(all) enum ActionKind {
+  Hold
+  Skip
+  SpeedUp
+  SlowDown
+  KeepPlan
+  ManualReview
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn ActionKind::label(Self) -> String
+
+pub(all) enum AlertKind {
+  DelayGrowth
+  StaleData
+  PositionJump
+  UnknownTrain
+  Recovered
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct CadenceReport {
+  segment_id : String
+  planned_entries : Int
+  minimum_headway_min : Int?
+  required_headway_min : Int
+  utilization_percent : Int
+  stable : Bool
+  detail : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct Conflict {
+  id : String
+  kind : ConflictKind
+  severity : String
+  resource_id : String
+  first_train_id : String
+  second_train_id : String
+  start_min : Int
+  end_min : Int
+  required_separation_min : Int
+  actual_separation_min : Int
+  message : String
+  evidence : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) enum ConflictKind {
+  HeadwayConflict
+  PlatformConflict
+  RouteConflict
+  InvalidGeometry
+  StaleTelemetry
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct DiagramFrame {
+  schedule_id : String
+  service_date : String
+  start_min : Int
+  end_min : Int
+  stations : Array[DiagramStation]
+  lines : Array[DiagramLine]
+  conflicts : Array[Conflict]
+  generated_at : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct DiagramLine {
+  train_id : String
+  service_name : String
+  direction : Direction
+  points : Array[DiagramPoint]
+  color : String
+  status : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct DiagramPoint {
+  time_min : Int
+  distance_m : Int
+  station_id : String
+  delay_min : Int
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct DiagramStation {
+  station_id : String
+  label : String
+  distance_m : Int
+  order : Int
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) enum Direction {
+  Up
+  Down
+  Loop
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn Direction::label(Self) -> String
+
+pub(all) struct DispatchAction {
+  kind : ActionKind
+  train_id : String
+  station_id : String?
+  resource_id : String?
+  delta_min : Int
+  score : Int
+  safe : Bool
+  reason : String
+  prerequisites : Array[String]
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct DispatchPolicy {
+  max_hold_min : Int
+  min_headway_buffer_min : Int
+  max_skip_count : Int
+  allow_skip : Bool
+  allow_speedup : Bool
+  allow_slowdown : Bool
+  policy_version : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct DispatchRecommendation {
+  conflict_id : String
+  primary : DispatchAction
+  alternatives : Array[DispatchAction]
+  expected_recovery_min : Int
+  impact_summary : String
+  policy_version : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct LineSegment {
+  id : String
+  from_station : String
+  to_station : String
+  distance_m : Int
+  min_run_min : Int
+  scheduled_run_min : Int
+  max_run_min : Int
+  headway_min : Int
+  throat_resource : String?
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn LineSegment::is_valid(Self) -> Bool
+
+pub(all) struct Monitor {
+  schedule : Schedule
+  config : MonitorConfig
+  mut runtimes : Array[TrainRuntime]
+  mut alerts : Array[MonitorAlert]
+  mut telemetry_count : Int
+} derive(@debug.Debug)
+pub fn Monitor::conflicts(Self, Int) -> Array[Conflict]
+pub fn Monitor::current_alerts(Self) -> Array[MonitorAlert]
+pub fn Monitor::current_runtimes(Self) -> Array[TrainRuntime]
+pub fn Monitor::dispatch_plan(Self, Int, policy? : DispatchPolicy) -> Array[DispatchRecommendation]
+pub fn Monitor::ingest(Self, TelemetryEvent) -> Unit
+pub fn Monitor::ingest_all(Self, Array[TelemetryEvent]) -> Unit
+pub fn Monitor::new(Schedule, config? : MonitorConfig) -> Self
+pub fn Monitor::snapshot(Self, Int) -> MonitorSnapshot
+
+pub(all) struct MonitorAlert {
+  id : String
+  kind : AlertKind
+  train_id : String
+  at_min : Int
+  severity : String
+  message : String
+  acknowledged : Bool
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct MonitorConfig {
+  stale_after_min : Int
+  delay_growth_threshold_min : Int
+  position_jump_threshold_m : Int
+  max_event_age_min : Int
+  alert_on_unknown_train : Bool
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct MonitorSnapshot {
+  schedule_id : String
+  at_min : Int
+  runtimes : Array[TrainRuntime]
+  alerts : Array[MonitorAlert]
+  telemetry_count : Int
+  stale_after_min : Int
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) enum PlanGate {
+  Pass
+  Warn
+  Reject
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct PlanReview {
+  gate : PlanGate
+  score : Int
+  validation_issues : Array[ValidationIssue]
+  conflicts : Array[Conflict]
+  recommendations : Array[DispatchRecommendation]
+  metrics : ScheduleMetrics
+  cadence : Array[CadenceReport]
+  explanation : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct PlatformLoad {
+  station_id : String
+  platform : Int
+  occupied_minutes : Int
+  service_count : Int
+  load_percent : Int
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct RenderOptions {
+  start_min : Int
+  end_min : Int
+  include_finished : Bool
+  include_conflicts : Bool
+  scale_time : Int
+  scale_distance : Int
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct RouteReservation {
+  id : String
+  train_id : String
+  resource_id : String
+  entry_min : Int
+  exit_min : Int
+  release_margin_min : Int
+  route_name : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct Schedule {
+  id : String
+  service_date : String
+  timezone : String
+  line_name : String
+  stations : Array[Station]
+  segments : Array[LineSegment]
+  trains : Array[Train]
+  reservations : Array[RouteReservation]
+  version : Int
+  notes : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn Schedule::is_valid(Self) -> Bool
+pub fn Schedule::station_by_id(Self, String) -> Station?
+pub fn Schedule::to_json_text(Self) -> String
+pub fn Schedule::to_xml_text(Self) -> String
+pub fn Schedule::train_by_id(Self, String) -> Train?
+
+pub(all) struct ScheduleMetrics {
+  train_count : Int
+  station_count : Int
+  segment_count : Int
+  total_train_km : Int
+  average_run_min : Int
+  peak_headway_load_percent : Int
+  platform_occupancy_percent : Int
+  conflict_count : Int
+  high_risk_conflict_count : Int
+  active_train_count : Int
+  average_delay_min : Int
+  maximum_delay_min : Int
+  validation_issue_count : Int
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct SegmentLoad {
+  segment_id : String
+  service_count : Int
+  occupied_minutes : Int
+  headway_min : Int
+  load_percent : Int
+  directions : Array[String]
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct SimulationReport {
+  schedule_id : String
+  steps : Array[SimulationStep]
+  conflict_count : Int
+  recommendation_count : Int
+  peak_delay_min : Int
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct SimulationStep {
+  at_min : Int
+  runtimes : Array[TrainRuntime]
+  conflicts : Array[Conflict]
+  recommendations : Array[DispatchRecommendation]
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct Station {
+  id : String
+  name : String
+  distance_m : Int
+  platform_count : Int
+  is_interchange : Bool
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn Station::is_valid(Self) -> Bool
+
+pub(all) struct StopTime {
+  station_id : String
+  arrival_min : Int
+  departure_min : Int
+  platform : Int
+  stop_kind : String
+  minimum_dwell_min : Int
+  passenger_dwell_min : Int
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn StopTime::is_dwell_valid(Self) -> Bool
+
+pub(all) struct TelemetryEvent {
+  event_id : String
+  train_id : String
+  observed_min : Int
+  station_id : String?
+  position_m : Int
+  delay_min : Int
+  speed_kmh : Int
+  mode : TrainMode
+  source : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct TimetableMutation {
+  train_id : String
+  action : ActionKind
+  station_id : String?
+  before_arrival_min : Int
+  after_arrival_min : Int
+  before_departure_min : Int
+  after_departure_min : Int
+  reason : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct Train {
+  id : String
+  service_name : String
+  direction : Direction
+  priority : Int
+  length_m : Int
+  max_speed_kmh : Int
+  stops : Array[StopTime]
+  notes : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn Train::first_time(Self) -> Int?
+pub fn Train::last_time(Self) -> Int?
+
+pub(all) enum TrainMode {
+  Planned
+  Running
+  Holding
+  Skipping
+  Finished
+  Cancelled
+  Unknown
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+pub fn TrainMode::label(Self) -> String
+
+pub(all) struct TrainRuntime {
+  train_id : String
+  observed_min : Int
+  station_id : String?
+  position_m : Int
+  delay_min : Int
+  speed_kmh : Int
+  mode : TrainMode
+  source : String
+  event_count : Int
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+pub(all) struct ValidationIssue {
+  code : String
+  severity : String
+  path : String
+  message : String
+  hint : String
+} derive(Eq, ToJson, @debug.Debug, @json.FromJson)
+
+// Type aliases
+
+// Traits
