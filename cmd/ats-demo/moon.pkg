@@ -1,5 +1,5 @@
 import {
-  "zhanghantian/moonbit-ats-timetable" @ats,
+  "zhtzht12345678/moonbit-ats-timetable" @ats,
   "moonbitlang/core/env",
 }
 

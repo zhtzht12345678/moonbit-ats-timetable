@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "zhanghantian/moonbit-ats-timetable"
+package "zhtzht12345678/moonbit-ats-timetable"
 
 import {
   "moonbitlang/core/debug",

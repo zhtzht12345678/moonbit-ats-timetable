@@ -1,10 +1,10 @@
-name = "zhanghantian/moonbit-ats-timetable"
+name = "zhtzht12345678/moonbit-ats-timetable"
 
 version = "0.1.0"
 
 readme = "README.mbt.md"
 
-repository = "https://github.com/zhanghantian/moonbit-ats-timetable"
+repository = "https://github.com/zhtzht12345678/moonbit-ats-timetable"
 
 license = "Apache-2.0"
 
