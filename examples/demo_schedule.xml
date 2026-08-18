@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schedule id="example-line-1" service_date="2026-08-18" timezone="Asia/Shanghai" line_name="MoonBit 示例线" version="1">
+  <stations>
+    <station id="A" name="南环" distance_m="0" platform_count="2" interchange="false" />
+    <station id="B" name="科创园" distance_m="1200" platform_count="2" interchange="false" />
+    <station id="C" name="中央公园" distance_m="2400" platform_count="4" interchange="true" />
+    <station id="D" name="北港" distance_m="3800" platform_count="2" interchange="false" />
+  </stations>
+  <segments>
+    <segment id="AB" from="A" to="B" distance_m="1200" min_run_min="2" scheduled_run_min="3" max_run_min="4" headway_min="3" throat_resource="" />
+    <segment id="BC" from="B" to="C" distance_m="1200" min_run_min="3" scheduled_run_min="4" max_run_min="5" headway_min="4" throat_resource="C-WEST" />
+    <segment id="CD" from="C" to="D" distance_m="1400" min_run_min="3" scheduled_run_min="4" max_run_min="5" headway_min="4" throat_resource="C-EAST" />
+  </segments>
+  <trains>
+    <train id="X101" service_name="示例上行" direction="up" priority="5" length_m="120" max_speed_kmh="80" notes="interchange example">
+      <stop station_id="A" arrival_min="60" departure_min="60" platform="1" stop_kind="origin" minimum_dwell_min="0" passenger_dwell_min="0" />
+      <stop station_id="B" arrival_min="63" departure_min="64" platform="1" stop_kind="normal" minimum_dwell_min="1" passenger_dwell_min="1" />
+      <stop station_id="C" arrival_min="68" departure_min="69" platform="2" stop_kind="transfer" minimum_dwell_min="1" passenger_dwell_min="1" />
+      <stop station_id="D" arrival_min="73" departure_min="73" platform="1" stop_kind="terminal" minimum_dwell_min="0" passenger_dwell_min="0" />
+    </train>
+  </trains>
+  <reservations>
+    <reservation id="RX101" train_id="X101" resource_id="C-WEST" entry_min="67" exit_min="70" release_margin_min="2" route_name="west-to-platform-2" />
+  </reservations>
+  <notes>Self-contained synthetic input for XML import examples.</notes>
+</schedule>
