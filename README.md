@@ -66,9 +66,13 @@ moon run --target native cmd/ats-bench -- --case medium --json
 
 完整命令、工具链、主机信息和现场输出见 [docs/benchmark.md](docs/benchmark.md)。当前本地原生运行的三档工作负载为 8×24、16×72 和 24×144（站点×车次），每档输出冲突观测、区间查询、资源重叠、客流观测和确定性校验和。
 
-## 测试与 CI
+## 测试
 
-测试覆盖模型非法输入、时间边界、半开区间、反向查询窗口、拓扑不可达、资源窗口、场景影响、陈旧遥测、容量钳制、序列化失败和基准可复现性。`.github/workflows/check.yml` 覆盖 Linux、macOS 和 Windows，执行全目标 `moon check --deny-warn`、`moon test --deny-warn`、原生构建、格式检查、接口信息生成和工作区差异检查。
+测试覆盖模型非法输入、时间边界、半开区间、反向查询窗口、拓扑不可达、资源窗口、场景影响、陈旧遥测、容量钳制、序列化失败和基准可复现性。
+
+## CI
+
+`.github/workflows/check.yml` 覆盖 Linux、macOS 和 Windows，执行全目标 `moon check --deny-warn`、`moon test --deny-warn`、原生构建、格式检查、接口信息生成和工作区差异检查。
 
 当前稳定工具链的 `moon fmt` 与 `moon info` 不接受 `--deny-warn`；严格告警由 check/test 门禁完成，再执行官方支持的 `fmt --check` 与 `info`。
 
