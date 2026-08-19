@@ -38,6 +38,44 @@ fn main {
     }
   } else if action == "health" {
     println(@ats.health_dashboard_json(schedule, [], 80))
+  } else if action == "operations" {
+    let report = @ats.operations_report(schedule, [], demo_runtimes(), 80)
+    if option_value(args, "--json") is Some(_) {
+      println(@ats.operations_report_json(report))
+    } else {
+      println(@ats.operations_report_markdown(report))
+    }
+  } else if action == "quality" {
+    let dashboard = @ats.assess_service_quality(
+      schedule,
+      demo_runtimes(),
+      [],
+      80,
+    )
+    if option_value(args, "--json") is Some(_) {
+      println(@ats.QualityDashboard::to_json_text(dashboard))
+    } else {
+      println(@ats.QualityDashboard::to_markdown(dashboard))
+    }
+  } else if action == "scenario" {
+    let scenario = @ats.incident(
+      id="demo-speed-restriction",
+      kind=@ats.SpeedRestriction,
+      severity=@ats.Warning,
+      target_id="BC",
+      start_min=65,
+      end_min=80,
+      value=2,
+      reason="demonstration of a bounded scenario assessment",
+    )
+    let assessment = @ats.assess_incident(schedule, scenario)
+    println(@ats.scenario_assessment_json(assessment))
+  } else if action == "plan" {
+    let plan = @ats.build_rolling_plan(schedule, demo_runtimes(), 80)
+    println(@ats.rolling_plan_markdown(plan))
+  } else if action == "recovery" {
+    let plan = @ats.build_recovery_plan(schedule, demo_runtimes(), 80)
+    println(@ats.RecoveryPlan::to_markdown(plan))
   } else {
     print_usage()
   }
@@ -56,6 +94,23 @@ fn option_value(args : Array[String], wanted : String) -> String? {
 ///|
 fn print_usage() -> Unit {
   println(
-    "moonbit-ats-timetable demo\n\n  moon run cmd/ats-demo -- --action <check|conflicts|diagram|xml|metrics|simulate|health> [--json]",
+    "moonbit-ats-timetable demo\n\n  moon run cmd/ats-demo -- --action <check|conflicts|diagram|xml|metrics|simulate|health|operations|quality|scenario|plan|recovery> [--json]",
   )
+}
+
+///|
+fn demo_runtimes() -> Array[@ats.TrainRuntime] {
+  @ats.demo_telemetry().map(fn(event) {
+    {
+      train_id: event.train_id,
+      observed_min: event.observed_min,
+      station_id: event.station_id,
+      position_m: event.position_m,
+      delay_min: event.delay_min,
+      speed_kmh: event.speed_kmh,
+      mode: event.mode,
+      source: event.source,
+      event_count: 1,
+    }
+  })
 }

@@ -1,0 +1,8 @@
+import {
+  "zhtzht12345678/moonbit-ats-timetable" @ats,
+  "moonbitlang/core/env",
+}
+
+supported_targets = "native"
+
+pkgtype(kind: "executable")

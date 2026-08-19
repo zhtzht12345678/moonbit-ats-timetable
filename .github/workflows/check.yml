@@ -52,6 +52,12 @@ jobs:
         shell: bash
         run: moon test --target all --deny-warn
 
+      - name: Build native targets and smoke test CLI
+        shell: bash
+        run: |
+          moon build --target native
+          moon run --target native cmd/ats-demo -- --action check
+
       - name: Check formatting and generated interfaces
         shell: bash
         run: |
